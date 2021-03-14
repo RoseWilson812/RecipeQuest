@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30804.86
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecipeQuest", "RecipeQuest\RecipeQuest.csproj", "{C818B4B1-C04D-458D-8549-5E513735D553}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C818B4B1-C04D-458D-8549-5E513735D553}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C818B4B1-C04D-458D-8549-5E513735D553}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C818B4B1-C04D-458D-8549-5E513735D553}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C818B4B1-C04D-458D-8549-5E513735D553}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C586B827-5719-4B26-BCD7-72E15B2A3324}
+	EndGlobalSection
+EndGlobal
