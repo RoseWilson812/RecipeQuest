@@ -92,3 +92,4 @@ C:\Users\rmwil\source\projects\RecipeQuest\RecipeQuest\obj\Debug\netcoreapp3.1\R
 C:\Users\rmwil\source\projects\RecipeQuest\RecipeQuest\obj\Debug\netcoreapp3.1\RecipeQuest.genruntimeconfig.cache
 C:\Users\rmwil\source\projects\RecipeQuest\RecipeQuest\obj\Debug\netcoreapp3.1\Razor\Views\SearchAll\Index.cshtml.g.cs
 C:\Users\rmwil\source\projects\RecipeQuest\RecipeQuest\obj\Debug\netcoreapp3.1\Razor\Views\MealByCategory\Index.cshtml.g.cs
+C:\Users\rmwil\source\projects\RecipeQuest\RecipeQuest\obj\Debug\netcoreapp3.1\Razor\Views\MealByOrigin\Index.cshtml.g.cs
