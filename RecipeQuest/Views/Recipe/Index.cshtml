@@ -10,7 +10,7 @@ else
         <h5>Ingredients for @Model.StrMeal:</h5>
     </div>
     <body>
-        <form asp-controller="Recipe" asp-route-idmeal=@Model.IdMeal asp-action="SaveToFav" method="post">
+        <form asp-controller="Recipe" asp-route-idmeal=@Model.Routing asp-action="SaveToFav" method="post">
             <div class="container-fluid">
                 @* style="background-color: #e9f1f4">
             @*     <div class="col-sm-2">

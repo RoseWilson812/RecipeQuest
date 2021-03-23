@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using RecipeQuest.Data;
 using RecipeQuest.Models;
 using RecipeQuest.ViewModels;
 using System;
@@ -13,31 +15,34 @@ namespace RecipeQuest.Controllers
 {
     public class RecipeController : Controller
     {
-        private readonly ILogger<RecipeController> _logger;
-        //List<string> ingredientList = new List<string>();
+        // parseMealId[0] = "Cat"(category) or "Ori"(origin),
+        // parseMeadId[1] = selected search item from category or origin 
+        // parseMealId[2] = mealId  
+        string[] parseMealId = new string[3];
+        
         List<Recipe> recipes = new List<Recipe>();
+        private RecipeDbContext context;
 
-
-        public RecipeController(ILogger<RecipeController> logger)
+        public RecipeController(RecipeDbContext dbContext)
         {
-            _logger = logger;
+            context = dbContext;
         }
+
+        [AllowAnonymous]
         [HttpGet]
         [Route("/Recipe/Index/{mealId}")]
 
         public async Task<IActionResult> IndexAsync(string mealId)
         {
+            parseMealId = mealId.Split('|');
             using (
-                
-                
-                
-                
+                                       
                 var client = new HttpClient())
             {
                 client.BaseAddress = new Uri("https://www.themealdb.com/api/json/v1/1/");
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage response = await client.GetAsync("lookup.php?i=" + mealId);
+                HttpResponseMessage response = await client.GetAsync("lookup.php?i=" + parseMealId[2]);
                 
                 if (response.IsSuccessStatusCode)
                 {
@@ -90,7 +95,8 @@ namespace RecipeQuest.Controllers
                                   jobject.meals[0].strMeasure17,
                                   jobject.meals[0].strMeasure18,
                                   jobject.meals[0].strMeasure19,
-                                  jobject.meals[0].strMeasure20
+                                  jobject.meals[0].strMeasure20,
+                                  mealId
                                  
                         );
                         ViewBag.errorMsg = "";
@@ -111,10 +117,21 @@ namespace RecipeQuest.Controllers
         [HttpPost]
         [Route("/Recipe/Index/{IdMeal}")]
 
+        [Authorize]
         public IActionResult SaveToFav(string IdMeal, Recipe newRecipe)
         {
+            context.Recipes.Add(newRecipe);
+            context.SaveChanges();
             ViewBag.errorMsg = "";
-            return RedirectToAction("Index", "Recipe", new { mealId = IdMeal });
+            parseMealId = IdMeal.Split('|');
+            if (parseMealId[0] == "Cat" )
+            {
+                return RedirectToAction("Index", "MealByCategory", new { myCat = parseMealId[1] });
+            } else
+            {
+                return RedirectToAction("Index", "MealByOrigin", new { myOrg = parseMealId[1] });
+            }
+            //return RedirectToAction("Index", "Recipe", new { mealId = IdMeal });
             //return RedirectToAction("Index", "SearchAll", new { area = "" });
         }
     }

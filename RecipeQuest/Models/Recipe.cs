@@ -8,7 +8,7 @@ namespace RecipeQuest.Models
 {
     public class Recipe
     {
-        int Id { get; set; }
+        public int Id { get; set; }
 
         public string IdMeal { get; set; }
         public string StrMeal { get; set; }
@@ -78,5 +78,19 @@ namespace RecipeQuest.Models
             StrIngredient20 = strIngredient20;
             
         }
+        public override string ToString()
+        {
+            return IdMeal;
+        }
+        public override bool Equals(object obj)
+        {
+            return obj is Recipe @recipe &&
+                Id == recipe.Id;
+        }
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Id);
+        }
+
     }
 }
