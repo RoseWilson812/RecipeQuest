@@ -1,0 +1,139 @@
+﻿@model RecipeQuest.ViewModels.RecipeViewModel
+
+@if (ViewBag.errorMsg.Length > 0)
+{
+    <p>@ViewBag.errorMsg</p>
+}
+else
+{
+    <div class="text-center" style="background-color: #e9f1f4">
+        <h5>Ingredients for @Model.StrMeal:</h5>
+    </div>
+    <body>
+        <form asp-controller="Recipe" asp-route-idmeal=@Model.Routing asp-action="SaveToFav" method="post">
+            <div class="container-fluid">
+                @* style="background-color: #e9f1f4">
+            @*     <div class="col-sm-2">
+                     <figure>
+                         <img src=@Model.StrMealThumb style="width:90%; height:90%">
+
+                         <figcaption>@Model.StrMeal</figcaption>
+                     </figure>
+                 </div> *@
+                    
+
+                <div class="row form-group">
+                    <div class="col-md-3">
+                        @Html.EditorFor(model => model.StrIngredient1, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    </div>
+
+                    <div class="col-md-3">
+                        @Html.EditorFor(model => model.StrIngredient2, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    </div>
+                    <div class="col-md-3">
+                        @Html.EditorFor(model => model.StrIngredient3, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    </div>
+                    <div class="col-md-3">
+                        @Html.EditorFor(model => model.StrIngredient4, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    </div>    
+                </div>
+                <div class="row form-group">
+                    <div class="col-md-3">
+                        @Html.EditorFor(model => model.StrIngredient5, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } }) 
+                    </div>
+
+                    <div class="col-md-3">
+                        @Html.EditorFor(model => model.StrIngredient6, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    </div>
+                    <div class="col-md-3">
+                        @Html.EditorFor(model => model.StrIngredient7, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    </div>
+                    <div class="col-md-3">
+                        @Html.EditorFor(model => model.StrIngredient8, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-md-3">
+                        @Html.EditorFor(model => model.StrIngredient9, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    </div>
+
+                    <div class="col-md-3">
+                        @Html.EditorFor(model => model.StrIngredient10, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    </div>
+                    <div class="col-md-3">
+                        @Html.EditorFor(model => model.StrIngredient11, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    </div>
+                    <div class="col-md-3">
+                        @Html.EditorFor(model => model.StrIngredient12, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-md-3">
+                        @Html.EditorFor(model => model.StrIngredient13, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    </div>
+
+                    <div class="col-md-3">
+                        @Html.EditorFor(model => model.StrIngredient14, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    </div>
+                    <div class="col-md-3">
+                        @Html.EditorFor(model => model.StrIngredient15, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    </div>
+                    <div class="col-md-3">
+                        @Html.EditorFor(model => model.StrIngredient16, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-md-3">
+                        @Html.EditorFor(model => model.StrIngredient17, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    </div>
+
+                    <div class="col-md-3">
+                        @Html.EditorFor(model => model.StrIngredient18, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    </div>
+                    <div class="col-md-3">
+                        @Html.EditorFor(model => model.StrIngredient19, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    </div>
+                    <div class="col-md-3">
+                        @Html.EditorFor(model => model.StrIngredient20, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    </div>
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col-sm-12">
+                    @Html.HiddenFor(model => model.StrInstructions)
+                </div>
+            </div>
+
+            <div class="text-center" style="background-color: #e9f1f4">
+                <h5>Instructions:</h5>
+            </div>
+
+            <div class="row form-group">
+                <div class="col-sm-12">
+                    <p style="white-space: pre-line">@Model.StrInstructions</p>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <input type="submit" value="Save to Favorites" class="btn btn-primary btn-lg active" style="background-color: #1ab2e6!important;">
+            </div>
+
+
+            <div class="row form-group">
+                <div class="col-sm-3">
+                    @Html.HiddenFor(model => model.StrMeal)
+                </div>
+                <div class="col-sm-3">
+                    @Html.HiddenFor(model => model.StrMealThumb)
+                </div>
+                <div class="col-sm-3">
+                    @Html.HiddenFor(model => model.StrArea)
+                </div>
+                <div class="col-sm-3">
+                    @Html.HiddenFor(model => model.StrCategory)
+                </div>
+            </div>
+        </form>
+    </body>
+}

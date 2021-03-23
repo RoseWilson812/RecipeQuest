@@ -1,10 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using System;
 
-namespace RecipeQuest.Data.Migrations
+namespace RecipeQuest.Migrations
 {
-    public partial class CreateIdentitySchema : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -48,11 +48,49 @@ namespace RecipeQuest.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Recipes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    IdMeal = table.Column<string>(nullable: true),
+                    StrMeal = table.Column<string>(nullable: true),
+                    StrCategory = table.Column<string>(nullable: true),
+                    StrArea = table.Column<string>(nullable: true),
+                    StrInstructions = table.Column<string>(nullable: true),
+                    StrMealThumb = table.Column<string>(nullable: true),
+                    StrIngredient1 = table.Column<string>(nullable: true),
+                    StrIngredient2 = table.Column<string>(nullable: true),
+                    StrIngredient3 = table.Column<string>(nullable: true),
+                    StrIngredient4 = table.Column<string>(nullable: true),
+                    StrIngredient5 = table.Column<string>(nullable: true),
+                    StrIngredient6 = table.Column<string>(nullable: true),
+                    StrIngredient7 = table.Column<string>(nullable: true),
+                    StrIngredient8 = table.Column<string>(nullable: true),
+                    StrIngredient9 = table.Column<string>(nullable: true),
+                    StrIngredient10 = table.Column<string>(nullable: true),
+                    StrIngredient11 = table.Column<string>(nullable: true),
+                    StrIngredient12 = table.Column<string>(nullable: true),
+                    StrIngredient13 = table.Column<string>(nullable: true),
+                    StrIngredient14 = table.Column<string>(nullable: true),
+                    StrIngredient15 = table.Column<string>(nullable: true),
+                    StrIngredient16 = table.Column<string>(nullable: true),
+                    StrIngredient17 = table.Column<string>(nullable: true),
+                    StrIngredient18 = table.Column<string>(nullable: true),
+                    StrIngredient19 = table.Column<string>(nullable: true),
+                    StrIngredient20 = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Recipes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     RoleId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
@@ -73,7 +111,7 @@ namespace RecipeQuest.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     UserId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
@@ -162,8 +200,7 @@ namespace RecipeQuest.Data.Migrations
                 name: "RoleNameIndex",
                 table: "AspNetRoles",
                 column: "NormalizedName",
-                unique: true,
-                filter: "[NormalizedName] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetUserClaims_UserId",
@@ -189,8 +226,7 @@ namespace RecipeQuest.Data.Migrations
                 name: "UserNameIndex",
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
-                unique: true,
-                filter: "[NormalizedUserName] IS NOT NULL");
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -209,6 +245,9 @@ namespace RecipeQuest.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "Recipes");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

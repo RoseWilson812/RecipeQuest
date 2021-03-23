@@ -50,6 +50,7 @@ namespace RecipeQuest.Controllers
                             StrMeal = jobject.meals[i].strMeal,
                             StrMealThumb = jobject.meals[i].strMealThumb,
                             IdMeal = jobject.meals[i].idMeal,
+                            SearchItem = myCat,
                         };
                         categoryMealsList.Add(newMealByCategory);
                     }

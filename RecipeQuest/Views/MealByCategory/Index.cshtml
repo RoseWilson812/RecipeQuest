@@ -1,4 +1,5 @@
-﻿@if (ViewBag.errorMsg.Length > 0)
+﻿@model RecipeQuest.Models.MealByCategory;
+@if (ViewBag.errorMsg.Length > 0)
 {
     <p>@ViewBag.errorMsg</p>
 }
@@ -13,11 +14,15 @@ else
     <div class="container-fluid" style="background-color: #e9f1f4">
 
         @{var i = 0;}
+        @{var searchSelect = "Cat|";}
+        @{ var pipe = "|";}
+        @{ var route = "";}
         <div class="row">
             @foreach (MealByCategory recipe in ViewBag.displayCategoryMeals)
             {
+                route = searchSelect + @recipe.SearchItem + pipe + @recipe.IdMeal;
                 <div class="col-lg-3 col-md-4 col-xs-3 thumb">
-                    <a asp-area="" asp-controller="Recipe" asp-route-mealid=@recipe.IdMeal asp-action="Index">
+                    <a asp-area="" asp-controller="Recipe" asp-route-mealid=@route asp-action="Index">
                         <figure>
                             <img src=@recipe.StrMealThumb style="width:90%; height:90%">
 
@@ -32,6 +37,10 @@ else
                 {
                     // close the div and start again
                 @:</div><div class="row">
+
+
+
+
 
 
 

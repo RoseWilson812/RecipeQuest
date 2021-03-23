@@ -11,16 +11,18 @@ namespace RecipeQuest.Models
         public string StrMeal { get; set; }
         public string StrMealThumb { get; set; }
         public string IdMeal { get; set; }
+        public string SearchItem { get; set; }
 
 
         public MealByCategory()
         {
         }
-        public MealByCategory(string meal, string mealImage, string mealId)
+        public MealByCategory(string meal, string mealImage, string mealId, string searchItem)
         {
             StrMeal = meal;
             StrMealThumb = mealImage;
             IdMeal = mealId;
+            SearchItem = searchItem;
 
         }
     }

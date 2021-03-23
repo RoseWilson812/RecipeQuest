@@ -49,6 +49,7 @@ namespace RecipeQuest.Controllers
                             StrMeal = jobject.meals[i].strMeal,
                             StrMealThumb = jobject.meals[i].strMealThumb,
                             IdMeal = jobject.meals[i].idMeal,
+                            SearchItem = myOrg,
                         };
                         originMealsList.Add(newMealByOrigin);
                     }
