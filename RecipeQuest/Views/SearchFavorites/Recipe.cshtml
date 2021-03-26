@@ -1,0 +1,122 @@
+﻿@model RecipeQuest.ViewModels.SearchFavoritesViewModel;
+
+
+    <div class="text-center" style="background-color: #e9f1f4">
+        <h5>Ingredients for @Model.SelectedRecipe[0].StrMeal:</h5>
+    </div>
+    <body>
+        
+            <form asp-controller="SearchFavorites" asp-route-id=@Model.SelectedRecipe[0].Id asp-action="DeleteRecipe" method="post">
+                
+
+                    <div class="container-fluid">
+                        @* style="background-color: #e9f1f4">
+                        @*     <div class="col-sm-2">
+                                 <figure>
+                                     <img src=@Model.StrMealThumb style="width:90%; height:90%">
+
+                                     <figcaption>@Model.StrMeal</figcaption>
+                                 </figure>
+                             </div> *@
+
+
+                        <div class="row form-group">
+                            <div class="col-md-3">
+                                @Html.EditorFor(model => @Model.SelectedRecipe[0].StrIngredient1, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            </div>
+
+                            <div class="col-md-3">
+                                @Html.EditorFor(model => @Model.SelectedRecipe[0].StrIngredient2, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            </div>
+                            <div class="col-md-3">
+                                @Html.EditorFor(model => @Model.SelectedRecipe[0].StrIngredient3, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            </div>
+                            <div class="col-md-3">
+                                @Html.EditorFor(model => @Model.SelectedRecipe[0].StrIngredient4, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-3">
+                                @Html.EditorFor(model => @Model.SelectedRecipe[0].StrIngredient5, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            </div>
+
+                            <div class="col-md-3">
+                                @Html.EditorFor(model => @Model.SelectedRecipe[0].StrIngredient6, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            </div>
+                            <div class="col-md-3">
+                                @Html.EditorFor(model => @Model.SelectedRecipe[0].StrIngredient7, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            </div>
+                            <div class="col-md-3">
+                                @Html.EditorFor(model => @Model.SelectedRecipe[0].StrIngredient8, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-3">
+                                @Html.EditorFor(model => @Model.SelectedRecipe[0].StrIngredient9, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            </div>
+
+                            <div class="col-md-3">
+                                @Html.EditorFor(model => @Model.SelectedRecipe[0].StrIngredient10, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            </div>
+                            <div class="col-md-3">
+                                @Html.EditorFor(model => @Model.SelectedRecipe[0].StrIngredient11, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            </div>
+                            <div class="col-md-3">
+                                @Html.EditorFor(model => @Model.SelectedRecipe[0].StrIngredient12, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-3">
+                                @Html.EditorFor(model => @Model.SelectedRecipe[0].StrIngredient13, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            </div>
+
+                            <div class="col-md-3">
+                                @Html.EditorFor(model => @Model.SelectedRecipe[0].StrIngredient14, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            </div>
+                            <div class="col-md-3">
+                                @Html.EditorFor(model => @Model.SelectedRecipe[0].StrIngredient15, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            </div>
+                            <div class="col-md-3">
+                                @Html.EditorFor(model => @Model.SelectedRecipe[0].StrIngredient16, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-3">
+                                @Html.EditorFor(model => @Model.SelectedRecipe[0].StrIngredient17, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            </div>
+
+                            <div class="col-md-3">
+                                @Html.EditorFor(model => @Model.SelectedRecipe[0].StrIngredient18, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            </div>
+                            <div class="col-md-3">
+                                @Html.EditorFor(model => @Model.SelectedRecipe[0].StrIngredient19, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            </div>
+                            <div class="col-md-3">
+                                @Html.EditorFor(model => @Model.SelectedRecipe[0].StrIngredient20, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            </div>
+                        </div>
+                    </div>
+
+                
+
+                <div class="text-center" style="background-color: #e9f1f4">
+                    <h5>Instructions:</h5>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col-sm-12">
+                        <p style="white-space: pre-line">@Model.SelectedRecipe[0].StrInstructions</p>
+                    </div>
+                </div>
+          
+             
+
+                <div class="text-center">
+                    <input type="submit" value="Delete Recipe" class="btn btn-primary btn-lg active" style="background-color: #1ab2e6!important;">
+                </div>
+
+
+            </form>
+        </body>      
+ 
+

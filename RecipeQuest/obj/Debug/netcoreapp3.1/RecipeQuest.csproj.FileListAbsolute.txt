@@ -176,3 +176,6 @@ C:\Users\rmwil\source\projects\RecipeQuest\RecipeQuest\obj\Debug\netcoreapp3.1\R
 C:\Users\rmwil\source\projects\RecipeQuest\RecipeQuest\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\Account\_ViewImports.cshtml.g.cs
 C:\Users\rmwil\source\projects\RecipeQuest\RecipeQuest\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\_ValidationScriptsPartial.cshtml.g.cs
 C:\Users\rmwil\source\projects\RecipeQuest\RecipeQuest\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\_ViewImports.cshtml.g.cs
+C:\Users\rmwil\source\projects\RecipeQuest\RecipeQuest\obj\Debug\netcoreapp3.1\Razor\Views\SearchFavorites\Index.cshtml.g.cs
+C:\Users\rmwil\source\projects\RecipeQuest\RecipeQuest\obj\Debug\netcoreapp3.1\Razor\Views\SearchFavorites\Recipe.cshtml.g.cs
+C:\Users\rmwil\source\projects\RecipeQuest\RecipeQuest\obj\Debug\netcoreapp3.1\Razor\Views\SearchFavorites\SearchCategory.cshtml.g.cs

@@ -7,10 +7,11 @@ namespace RecipeQuest.Models
 {
     public class MealByOrigin
     {
-        public int Id { get; set; }
+        
         public string StrMeal { get; set; }
         public string StrMealThumb { get; set; }
         public string IdMeal { get; set; }
+
         public string SearchItem { get; set; }
 
 

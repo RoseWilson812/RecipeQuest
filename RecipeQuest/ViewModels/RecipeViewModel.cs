@@ -35,7 +35,9 @@ namespace RecipeQuest.ViewModels
         public string StrIngredient18 { get; set; }
         public string StrIngredient19 { get; set; }
         public string StrIngredient20 { get; set; }
+        public string UserId { get; set; }
         public string Routing { get; set; }
+        
         
         
 
@@ -54,7 +56,7 @@ namespace RecipeQuest.ViewModels
             string strMeasure6, string strMeasure7, string strMeasure8, string strMeasure9, string strMeasure10,
             string strMeasure11, string strMeasure12, string strMeasure13, string strMeasure14, string strMeasure15,
             string strMeasure16, string strMeasure17, string strMeasure18, string strMeasure19, string strMeasure20,
-            string routing)
+            string userId, string routing)
            
         {
             IdMeal = idMeal;
@@ -83,6 +85,7 @@ namespace RecipeQuest.ViewModels
             StrIngredient18 = strMeasure18 + " " + strIngredient18;
             StrIngredient19 = strMeasure19 + " " + strIngredient19;
             StrIngredient20 = strMeasure20 + " " + strIngredient20;
+            UserId = userId;
             Routing = routing;       
         }
     }

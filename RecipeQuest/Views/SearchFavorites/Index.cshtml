@@ -1,0 +1,72 @@
+﻿@model RecipeQuest.ViewModels.SearchFavoritesViewModel
+@{
+    ViewData["Title"] = "Search Favorites";
+}
+
+@if (@Model.CategoryNameList.Count == 0)
+{
+    <h3 class="text-lg-center"> No Saved Recipes</h3>
+    <div class="text-center">
+        <a class="btn btn-primary btn-lg active" style="background-color: #1ab2e6!important;" asp-area="" asp-controller="SearchAll" asp-action="Index" role="button">Search For Recipes</a>
+    </div>
+}
+else
+{
+
+
+    <div class="text-center" style="background-color: #e9f1f4">
+        <h3>Search by Category</h3>
+    </div>
+
+
+    int j = 0;
+    <div class="container-fluid">
+        <div class="row">
+            <div class="list-group list-group-horizontal-sm">
+                @for (int i = 0; i < @Model.CategoryNameList.Count; i++)
+                {
+                    <a class="list-group-item list-group-item-action list-group-item-primary" asp-area="" asp-controller="SearchFavorites" asp-route-mycat=@Model.CategoryNameList[i] asp-action="SearchCategory">@Model.CategoryNameList[i]</a>
+                    j = j + 1;
+
+                    @if (j > 0 && j % 10 == 0)
+                    {
+                        // close the div and start again
+                    @:</div><div class="list-group list-group-horizontal-sm">
+                    }
+                }
+
+            </div>
+        </div>
+
+    </div>
+
+
+    j = 0;
+    <br />
+    <div class="text-center" style="background-color: #e9f1f4">
+        <h3>Search by Country of Origin</h3>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="list-group list-group-horizontal-sm">
+                @for (int i = 0; i < @Model.OriginNameList.Count; i++)
+
+                {
+                    <a class="list-group-item list-group-item-action list-group-item-primary" asp-area="" asp-controller="SearchFavorites" asp-route-myorg=@Model.OriginNameList[i] asp-action="SearchOrigin">@Model.OriginNameList[i]</a>
+                    j = j + 1;
+
+                    @if (j > 0 && j % 9 == 0)
+                    {
+                        // close the div and start again
+                    @:</div><div class="list-group list-group-horizontal-sm">
+                    }
+                }
+            </div>
+
+        </div>
+
+    </div>
+    
+}
+

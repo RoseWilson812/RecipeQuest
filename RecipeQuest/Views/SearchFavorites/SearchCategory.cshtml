@@ -1,0 +1,40 @@
+﻿@model RecipeQuest.ViewModels.SearchFavoritesViewModel;
+
+    <div class="text-center" style="background-color: #e9f1f4">
+        <h3>Favorites: Results for Category: @ViewBag.selectedSearchItem</h3>
+
+    </div>
+
+    <div class="container-fluid" style="background-color: #e9f1f4">
+
+        @{var i = 0;}
+        
+        <div class="row">
+            @foreach (Recipe recipe in @Model.DisplayRecipeList)
+            {
+                <div class="col-lg-3 col-md-4 col-xs-3 thumb">
+                    <a asp-area="" asp-controller="SearchFavorites" asp-route-mealid=@recipe.IdMeal asp-action="SelectedCategoryMeal">
+                        <figure>
+                            <img src=@recipe.StrMealThumb style="width:90%; height:90%">
+
+                            <figcaption>@recipe.StrMeal</figcaption>
+                        </figure>
+                    </a>
+                </div>
+
+                i = i + 1;
+
+                @if (i > 0 && i % 4 == 0)
+                {
+                    // close the div and start again
+                @:</div><div class="row">
+
+
+                }
+            }
+
+        </div>
+
+    </div>
+
+

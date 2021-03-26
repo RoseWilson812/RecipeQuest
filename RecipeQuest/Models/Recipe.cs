@@ -36,6 +36,7 @@ namespace RecipeQuest.Models
         public string StrIngredient18 { get; set; }
         public string StrIngredient19 { get; set; }
         public string StrIngredient20 { get; set; }
+        public string UserId { get; set; }
         
 
 
@@ -48,7 +49,7 @@ namespace RecipeQuest.Models
             string strIngredient5, string strIngredient6, string strIngredient7, string strIngredient8,
             string strIngredient9, string strIngredient10, string strIngredient11, string strIngredient12,
             string strIngredient13, string strIngredient14, string strIngredient15, string strIngredient16,
-            string strIngredient17, string strIngredient18, string strIngredient19, string strIngredient20)
+            string strIngredient17, string strIngredient18, string strIngredient19, string strIngredient20, string userId )
         {
             IdMeal = idMeal;
             StrMeal = strMeal;
@@ -76,6 +77,7 @@ namespace RecipeQuest.Models
             StrIngredient18 = strIngredient18;
             StrIngredient19 = strIngredient19;
             StrIngredient20 = strIngredient20;
+            UserId = userId;
             
         }
         public override string ToString()
