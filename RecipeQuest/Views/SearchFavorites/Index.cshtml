@@ -3,6 +3,10 @@
     ViewData["Title"] = "Search Favorites";
 }
 
+<div class="text-left" style="background-color: #e9f1f4">
+    <h4>Search My Favorites By:</h4>
+</div>
+
 @if (@Model.CategoryNameList.Count == 0)
 {
     <h3 class="text-lg-center"> No Saved Recipes</h3>
@@ -15,7 +19,7 @@ else
 
 
     <div class="text-center" style="background-color: #e9f1f4">
-        <h3>Search by Category</h3>
+        <h3>Category</h3>
     </div>
 
 
@@ -44,7 +48,7 @@ else
     j = 0;
     <br />
     <div class="text-center" style="background-color: #e9f1f4">
-        <h3>Search by Country of Origin</h3>
+        <h3>Country Of Origin</h3>
     </div>
 
     <div class="container-fluid">
@@ -67,6 +71,6 @@ else
         </div>
 
     </div>
-    
+
 }
 

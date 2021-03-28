@@ -1,11 +1,16 @@
-﻿@if (ViewBag.errorMsg.Length > 0)
+﻿
+<div class="text-left" style="background-color: #e9f1f4">
+    <h4>All Recipes:</h4>
+</div>
+
+@if (ViewBag.errorMsg.Length > 0)
 {
     <p>@ViewBag.errorMsg</p>
 }
 else
 {
     <div class="text-center" style="background-color: #e9f1f4">
-        <h3>Results for Origin: @ViewBag.originSearched</h3>
+        <h3>Results for Country Of Origin: @ViewBag.originSearched</h3>
 
     </div>
 

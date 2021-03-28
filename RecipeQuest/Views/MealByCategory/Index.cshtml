@@ -1,14 +1,18 @@
 ﻿@model RecipeQuest.Models.MealByCategory;
+
+<div class="text-left" style="background-color: #e9f1f4">
+    <h4>All Recipes:</h4>
+</div>
+
 @if (ViewBag.errorMsg.Length > 0)
 {
     <p>@ViewBag.errorMsg</p>
 }
 else
 {
-
+    
     <div class="text-center" style="background-color: #e9f1f4">
         <h3>Results for Category: @ViewBag.categorySearched</h3>
-
     </div>
 
     <div class="container-fluid" style="background-color: #e9f1f4">
@@ -37,14 +41,6 @@ else
                 {
                     // close the div and start again
                 @:</div><div class="row">
-
-
-
-
-
-
-
-
                 }
             }
 

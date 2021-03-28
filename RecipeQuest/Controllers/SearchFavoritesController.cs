@@ -63,12 +63,15 @@ namespace RecipeQuest.Controllers
             }
 
             ViewBag.errorMsg = "";
-            
+            categoryName.Sort();
+            originName.Sort();
+                       
+            List<Recipe> sortedRecipes = allRecipes.OrderBy(recipe => recipe.StrMeal).ToList();
             List<Recipe> selectRecipe = new List<Recipe>();
             List<Recipe> searchRecipe = new List<Recipe>();
             List<Recipe> displayRecipe = new List<Recipe>();
             SearchFavoritesViewModel searchFavoritesViewModel =
-                new SearchFavoritesViewModel(allRecipes, categoryName, originName,
+                new SearchFavoritesViewModel(sortedRecipes, categoryName, originName,
                 "", "", "", "", searchRecipe, selectRecipe, displayRecipe);
 
             return View(searchFavoritesViewModel);
@@ -79,7 +82,6 @@ namespace RecipeQuest.Controllers
         public IActionResult SearchCategory(string myCat, SearchFavoritesViewModel searchFavoritesViewModel)
         {
             List<Recipe> searchRecipe = new List<Recipe>();
-            List<Recipe> displayRecipe = new List<Recipe>();
             SearchFavoritesViewModel.SelectedSearch = "Cat";
             SearchFavoritesViewModel.SelectedSearchItem = myCat;
             foreach (Recipe recipe in SearchFavoritesViewModel.UserRecipeList)
@@ -89,6 +91,7 @@ namespace RecipeQuest.Controllers
                     searchRecipe.Add(recipe);
                 }
             }
+            
             SearchFavoritesViewModel.SearchRecipeList = searchRecipe;
             searchFavoritesViewModel.DisplayRecipeList = searchRecipe;
             ViewBag.selectedSearchItem = SearchFavoritesViewModel.SelectedSearchItem;
@@ -102,6 +105,44 @@ namespace RecipeQuest.Controllers
             List<Recipe> selectRecipe = new List<Recipe>();
             searchFavoritesViewModel.SelectedMealId = mealId;
             
+            foreach (Recipe recipe in SearchFavoritesViewModel.SearchRecipeList)
+            {
+                if (recipe.IdMeal == mealId)
+                {
+                    selectRecipe.Add(recipe);
+                }
+            }
+            searchFavoritesViewModel.SelectedRecipe = selectRecipe;
+            return View("Recipe", searchFavoritesViewModel);
+        } 
+
+        [HttpGet]
+        [Route("/SearchFavorites/SearchOrigin/{myOrg}")]
+        public IActionResult SearchOrigin(string myOrg, SearchFavoritesViewModel searchFavoritesViewModel)
+        {
+            List<Recipe> searchRecipe = new List<Recipe>();
+            SearchFavoritesViewModel.SelectedSearch = "Org";
+            SearchFavoritesViewModel.SelectedSearchItem = myOrg;
+            foreach (Recipe recipe in SearchFavoritesViewModel.UserRecipeList)
+            {
+                if (recipe.StrArea == myOrg)
+                {
+                    searchRecipe.Add(recipe);
+                }
+            }
+            SearchFavoritesViewModel.SearchRecipeList = searchRecipe;
+            searchFavoritesViewModel.DisplayRecipeList = searchRecipe;
+            ViewBag.selectedSearchItem = SearchFavoritesViewModel.SelectedSearchItem;
+            return View("SearchOrigin", searchFavoritesViewModel);
+        }
+
+        [HttpGet]
+        [Route("/SearchFavorites/SelectedOriginMeal/{mealId}")]
+        public IActionResult SelectedOriginMeal(string mealId, SearchFavoritesViewModel searchFavoritesViewModel)
+        {
+            List<Recipe> selectRecipe = new List<Recipe>();
+            searchFavoritesViewModel.SelectedMealId = mealId;
+
             foreach (Recipe recipe in SearchFavoritesViewModel.SearchRecipeList)
             {
                 if (recipe.IdMeal == mealId)
