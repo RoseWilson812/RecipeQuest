@@ -38,6 +38,8 @@ namespace RecipeQuest.Controllers
         public async Task<IActionResult> IndexAsync(string mealId)
         {
             string initializeUserId = "";            
+            
+            // mealId = searchSelect("Cat" or "Org" or "Ing") + "|" + SearchItem + "|" + IdMeal;
             parseMealId = mealId.Split('|');
 
             using (
@@ -149,9 +151,14 @@ namespace RecipeQuest.Controllers
             if (parseMealId[0] == "Cat" )
             {
                 return RedirectToAction("Index", "MealByCategory", new { myCat = parseMealId[1] });
-            } else
+            } 
+            else if (parseMealId[0] == "Org")
             {
                 return RedirectToAction("Index", "MealByOrigin", new { myOrg = parseMealId[1] });
+            }
+            else  // == "Ing"
+            {
+                return RedirectToAction("Index", "MealByIngredient", new { mySearch = parseMealId[1] });
             }
             
         }

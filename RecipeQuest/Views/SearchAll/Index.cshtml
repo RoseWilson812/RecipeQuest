@@ -1,4 +1,5 @@
-﻿@{
+﻿@model RecipeQuest.ViewModels.MealByIngredientViewModel;
+@{
     ViewData["Title"] = "Search All";
 }
 
@@ -12,19 +13,35 @@ else
         <h4>Search All Recipes By:</h4>
     </div>
 
+    <body>
+        <div class="container">
+            <div class="text-center" style="background-color: #e9f1f4">
+                <h3>Ingredient</h3>
+            </div>
+            <form asp-controller="SearchAll" asp-action="Transfer" method="post">
+
+                <div class="text-center form-group">
+                    <input asp-for="DisplaySearchIngredient">
+                    <span asp-validation-for="DisplaySearchIngredient"></span>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary active" style="background-color: #1ab2e6!important;">Search</button>
+                 </div>
+            </form>
+        </div>
+    </body>
+    <br />
     <div class="text-center" style="background-color: #e9f1f4">
         <h3>Category</h3>
     </div>
-
-
 
     int j = 0;
     <div class="container-fluid">
         <div class="row">
             <div class="list-group list-group-horizontal-sm">
-                @for (int i = 0; i < @ViewBag.displayCategory.Count; i++)
+                @for (int i = 0; i < @Model.DisplayCategoryNames.Count; i++)
                 {
-                    <a class="list-group-item list-group-item-action list-group-item-primary" asp-area="" asp-controller="MealByCategory" asp-route-mycat=@ViewBag.displayCategory[i] asp-action="Index">@ViewBag.displayCategory[i]</a>
+                    <a class="list-group-item list-group-item-action list-group-item-primary" asp-area="" asp-controller="MealByCategory" asp-route-mycat=@Model.DisplayCategoryNames[i] asp-action="Index">@Model.DisplayCategoryNames[i]</a>
                     j = j + 1;
 
                     @if (j > 0 && j % 10 == 0)
@@ -49,9 +66,9 @@ else
     <div class="container-fluid">
         <div class="row">
             <div class="list-group list-group-horizontal-sm">
-                @for (int i = 0; i < @ViewBag.displayOrigin.Count; i++)
+                @for (int i = 0; i < @Model.DisplayOriginNames.Count; i++)
                 {
-                    <a class="list-group-item list-group-item-action list-group-item-primary" asp-area="" asp-controller="MealByOrigin" asp-route-myorg=@ViewBag.displayOrigin[i] asp-action="Index">@ViewBag.displayOrigin[i]</a>
+                    <a class="list-group-item list-group-item-action list-group-item-primary" asp-area="" asp-controller="MealByOrigin" asp-route-myorg=@Model.DisplayOriginNames[i] asp-action="Index">@Model.DisplayOriginNames[i]</a>
                     j = j + 1;
 
                     @if (j > 0 && j % 9 == 0)

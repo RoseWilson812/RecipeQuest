@@ -1,0 +1,51 @@
+﻿@model RecipeQuest.ViewModels.MealByIngredientViewModel;
+
+<div class="text-left" style="background-color: #e9f1f4">
+    <h4>All Recipes:</h4>
+</div>
+
+@if (ViewBag.errorMsg.Length > 0)
+{
+    <p>@ViewBag.errorMsg</p>
+}
+else
+{
+    <div class="text-center" style="background-color: #e9f1f4">
+        <h3>Results for Ingredient: @Model.DisplaySearchIngredient</h3>
+
+    </div>
+
+    <div class="container-fluid" style="background-color: #e9f1f4">
+
+        @{var i = 0;}
+        @{var searchSelect = "Ing|";}
+        @{ var pipe = "|";}
+        @{ var route = "";}
+        <div class="row">
+            @foreach (MealByIngredient recipe in Model.DisplayMealsByIngredientList)
+            {
+                route = searchSelect + @recipe.SearchItem + pipe + @recipe.IdMeal;
+                <div class="col-lg-3 col-md-4 col-xs-3 thumb">
+                    <a asp-area="" asp-controller="Recipe" asp-route-mealid=@route asp-action="Index">
+                        <figure>
+                            <img src=@recipe.StrMealThumb style="width:90%; height:90%">
+
+                            <figcaption>@recipe.StrMeal</figcaption>
+                        </figure>
+                    </a>
+                </div>
+
+                i = i + 1;
+
+                @if (i > 0 && i % 4 == 0)
+                {
+                    // close the div and start again
+                @:</div><div class="row">
+                }
+            }
+
+        </div>
+
+    </div>
+
+}

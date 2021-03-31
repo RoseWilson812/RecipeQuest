@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using RecipeQuest.Models;
+using RecipeQuest.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +13,12 @@ namespace RecipeQuest.Controllers
 {
     public class SearchAllController : Controller
     {
+
         public async Task<IActionResult> IndexAsync()
         {
             List<string> categoryName = new List<string>();
             List<string> originName = new List<string>();
+            List<MealByIngredient> ingredientMeals = new List<MealByIngredient>();
 
             using (var client = new HttpClient())
             {
@@ -74,10 +77,58 @@ namespace RecipeQuest.Controllers
 
             }
             originName.Sort();
+            MealByIngredientViewModel mealByIngredientViewModel = new MealByIngredientViewModel(ingredientMeals, categoryName, originName);
+
             ViewBag.errorMsg = "";
             ViewBag.displayOrigin = originName;
-            return View();
+            
+            return View(mealByIngredientViewModel);
         }
+        [HttpPost]
+        public IActionResult Transfer(MealByIngredientViewModel mealByIngredientViewModel)
+        {
+            mealByIngredientViewModel.DisplayCategoryNames = new List<string>();
+            mealByIngredientViewModel.DisplayCategoryNames = MealByIngredientViewModel.CategoryNames.GetRange(0, MealByIngredientViewModel.CategoryNames.Count);
+            mealByIngredientViewModel.DisplayOriginNames = new List<string>();
+            mealByIngredientViewModel.DisplayOriginNames = MealByIngredientViewModel.OriginNames.GetRange(0, MealByIngredientViewModel.OriginNames.Count);
+            MealByIngredientViewModel.SearchIngredient = mealByIngredientViewModel.DisplaySearchIngredient;
+            string mySearch = MealByIngredientViewModel.SearchIngredient;
+            if (ModelState.IsValid)
+            {
 
+                return RedirectToAction("Index", "MealByIngredient", new { mySearch });
+            }
+            else
+            {
+                return RedirectToAction("SendError", "SearchAll", new { mealByIngredientViewModel });
+                
+            }
+        }
+        [HttpGet]
+        [Route("/SearchAll/SendError/{mealByIngredientViewModel}")]
+
+        public IActionResult SendError(MealByIngredientViewModel mealByIngredientViewModel)
+        {
+            mealByIngredientViewModel.DisplaySearchIngredient = MealByIngredientViewModel.SearchIngredient;
+            if (MealByIngredientViewModel.SearchIngredient is null ||
+               MealByIngredientViewModel.SearchIngredient == "")
+            {
+                ModelState.AddModelError("DisplaySearchIngredient",
+                                    "An ingredient must be entered.");
+            }
+            else
+            {
+                ModelState.Clear();
+            }
+            mealByIngredientViewModel.DisplayCategoryNames = new List<string>();
+            mealByIngredientViewModel.DisplayCategoryNames = MealByIngredientViewModel.CategoryNames.GetRange(0, MealByIngredientViewModel.CategoryNames.Count);
+            mealByIngredientViewModel.DisplayOriginNames = new List<string>();
+            mealByIngredientViewModel.DisplayOriginNames = MealByIngredientViewModel.OriginNames.GetRange(0, MealByIngredientViewModel.OriginNames.Count);
+            
+            ViewBag.errorMsg = "";
+            return View("Index", mealByIngredientViewModel);
+
+    
+        }
     }
 }
