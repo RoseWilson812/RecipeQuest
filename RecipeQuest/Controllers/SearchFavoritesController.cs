@@ -41,7 +41,7 @@ namespace RecipeQuest.Controllers
                 {
                     if (originName.Contains(rec.StrArea))
                     {
-                        break;
+                        continue;
                     }
                     else
                     {
@@ -53,7 +53,7 @@ namespace RecipeQuest.Controllers
                     categoryName.Add(rec.StrCategory);
                     if (originName.Contains(rec.StrArea))
                     {
-                        break;
+                        continue;
                     }
                     else
                     {
