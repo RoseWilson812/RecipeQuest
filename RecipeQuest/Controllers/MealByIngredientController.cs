@@ -66,7 +66,7 @@ namespace RecipeQuest.Controllers
             ViewBag.errorMsg = "";
             
             MealByIngredientViewModel.MealsByIngredientList = ingredientMealsList.GetRange(0, ingredientMealsList.Count);
-            
+            MealByIngredientViewModel.SearchIngredient = mySearch;
             return Redirect("/MealByIngredient/ShowList");
             
         }
@@ -76,6 +76,7 @@ namespace RecipeQuest.Controllers
         {
             mealByIngredientViewModel.DisplayMealsByIngredientList = new List<MealByIngredient>();
             mealByIngredientViewModel.DisplayMealsByIngredientList = MealByIngredientViewModel.MealsByIngredientList.GetRange(0, MealByIngredientViewModel.MealsByIngredientList.Count);
+            mealByIngredientViewModel.DisplaySearchIngredient = MealByIngredientViewModel.SearchIngredient;
             ViewBag.errorMsg = "";
             
             return View("Index", mealByIngredientViewModel);
