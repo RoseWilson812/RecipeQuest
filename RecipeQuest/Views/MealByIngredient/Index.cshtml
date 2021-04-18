@@ -14,7 +14,12 @@ else
         <h3>Results for Ingredient: @Model.DisplaySearchIngredient</h3>
 
     </div>
-
+  @if (ViewBag.msg.Length > 0)
+  {
+      <p>@ViewBag.msg</p>
+  }
+  else
+  {
     <div class="container-fluid" style="background-color: #e9f1f4">
 
         @{var i = 0;}
@@ -47,5 +52,5 @@ else
         </div>
 
     </div>
-
+  }
 }

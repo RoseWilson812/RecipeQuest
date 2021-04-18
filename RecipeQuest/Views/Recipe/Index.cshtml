@@ -6,13 +6,40 @@
 }
 else
 {
+    string[] parseMealId = new string[3];
+    parseMealId = @Model.Routing.Split('|');
+    string selectedSearch = parseMealId[0];
+    string selectedSearchItem = parseMealId[1];
+    if (ViewBag.Result != "")
+    {
+       <div class="text-center" style="background-color: #e9f1f4">
+          <h5>Recipe for @Model.StrMeal has been saved</h5>
+           <form>
+               <input type="button" value="Back to Results List" style="background-color: yellow!important"
+                      onclick="history.go(-2)" />
+           </form>
+       </div>
+    }
+    else
+    if (ViewBag.alreadySavedMsg != "")
+    {
+        <div class="text-center" style="background-color: #e9f1f4">
+            <h5>Recipe for @Model.StrMeal has been saved already</h5>
+            <form>
+                <input type="button" value="Back to Results List" style="background-color: yellow!important"
+                       onclick="history.go(-1)" />
+            </form>
+        </div>
+    }
+    else
+    {
     <div class="text-center" style="background-color: #e9f1f4">
         <h5>Ingredients for @Model.StrMeal:</h5>
     </div>
     <body>
         <form asp-controller="Recipe" asp-route-mealid=@Model.Routing asp-action="SaveToFav" method="post">
             <div class="container-fluid">
-               
+
                 <div class="row form-group">
                     <div class="col-md-3">
                         @Html.EditorFor(model => model.StrIngredient1, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
@@ -106,26 +133,39 @@ else
                 </div>
             </div>
 
-    
-            <div class="text-center">
-                    <input type="submit" value="Save to Favorites" class="btn btn-primary btn-lg active" style="background-color: #1ab2e6!important;">
-            </div>
-    
-
-                <div class="row form-group">
-                    <div class="col-sm-3">
-                        @Html.HiddenFor(model => model.StrMeal)
-                    </div>
-                    <div class="col-sm-3">
-                        @Html.HiddenFor(model => model.StrMealThumb)
-                    </div>
-                    <div class="col-sm-3">
-                        @Html.HiddenFor(model => model.StrArea)
-                    </div>
-                    <div class="col-sm-3">
-                        @Html.HiddenFor(model => model.StrCategory)
-                    </div>
+            @if (Model.UserId == "")
+            {
+                <div class="text-center">
+                    <input type="submit" value="Login to Save Recipe" disabled class="btn btn-primary btn-lg active" style="background-color: #1ab2e6!important;">
                 </div>
-            </form>
+            }
+            else
+            {
+                <div class="text-center">
+                    <input type="submit" value="Save to Favorites" class="btn btn-primary btn-lg active" style="background-color: #1ab2e6!important;">
+                </div>
+            }
+
+        <div class="row form-group">
+            <div class="col-sm-3">
+                @Html.HiddenFor(model => model.StrMeal)
+            </div>
+            <div class="col-sm-3">
+                @Html.HiddenFor(model => model.StrMealThumb)
+            </div>
+            <div class="col-sm-2">
+                @Html.HiddenFor(model => model.StrArea)
+            </div>
+            <div class="col-sm-2">
+                @Html.HiddenFor(model => model.StrCategory)
+            </div>
+            <div class="col-sm-2">
+                @Html.HiddenFor(model => model.UserId)
+            </div>
+        </div>
+        </form>
+       
+           
     </body>
+    }
 }

@@ -1,10 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using RecipeQuest.Data;
 using RecipeQuest.Models;
 using RecipeQuest.ViewModels;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
@@ -65,7 +63,7 @@ namespace RecipeQuest.Controllers
             ViewBag.errorMsg = "";
             categoryName.Sort();
             originName.Sort();
-                       
+
             List<Recipe> sortedRecipes = allRecipes.OrderBy(recipe => recipe.StrMeal).ToList();
             List<Recipe> selectRecipe = new List<Recipe>();
             List<Recipe> searchRecipe = new List<Recipe>();
@@ -91,7 +89,7 @@ namespace RecipeQuest.Controllers
                     searchRecipe.Add(recipe);
                 }
             }
-            
+
             SearchFavoritesViewModel.SearchRecipeList = searchRecipe;
             searchFavoritesViewModel.DisplayRecipeList = searchRecipe;
             ViewBag.selectedSearchItem = SearchFavoritesViewModel.SelectedSearchItem;
@@ -104,17 +102,19 @@ namespace RecipeQuest.Controllers
         {
             List<Recipe> selectRecipe = new List<Recipe>();
             searchFavoritesViewModel.SelectedMealId = mealId;
-            
+
             foreach (Recipe recipe in SearchFavoritesViewModel.SearchRecipeList)
             {
                 if (recipe.IdMeal == mealId)
                 {
                     selectRecipe.Add(recipe);
+                    break;
                 }
             }
             searchFavoritesViewModel.SelectedRecipe = selectRecipe;
+            ViewBag.deleteMsg = "";
             return View("Recipe", searchFavoritesViewModel);
-        } 
+        }
 
         [HttpGet]
         [Route("/SearchFavorites/SearchOrigin/{myOrg}")]
@@ -148,9 +148,11 @@ namespace RecipeQuest.Controllers
                 if (recipe.IdMeal == mealId)
                 {
                     selectRecipe.Add(recipe);
+                    break;
                 }
             }
             searchFavoritesViewModel.SelectedRecipe = selectRecipe;
+            ViewBag.deleteMsg = "";
             return View("Recipe", searchFavoritesViewModel);
         }
 
@@ -158,28 +160,40 @@ namespace RecipeQuest.Controllers
         [Route("/SearchFavorites/DeleteRecipe/{id}")]
         public IActionResult DeleteRecipe(int id, SearchFavoritesViewModel searchFavoritesViewModel)
         {
-            Recipe newRecipe = context.Recipes.Find(id);
-            string saveCategory = newRecipe.StrCategory;
-            string saveOrigin = newRecipe.StrCategory;
-            context.Recipes.Remove(newRecipe);
-            context.SaveChanges();
-            SearchFavoritesViewModel.UserRecipeList.RemoveAll(Recipe => Recipe.Id == id);
-
-            
-                if (SearchFavoritesViewModel.SelectedSearch == "Cat")
-                {
-                    return RedirectToAction("SearchCategory", "SearchFavorites", new { myCat = SearchFavoritesViewModel.SelectedSearchItem });
-                }
-                else
-                {
-                    return RedirectToAction("SearchOrigin", "SearchFavorites", new { myOrg = SearchFavoritesViewModel.SelectedSearchItem });
-                }
-            
+            int index = SearchFavoritesViewModel.UserRecipeList.FindIndex(Recipe => Recipe.Id == id);
            
+            if (index >= 0)
+            {
+                Recipe newRecipe = context.Recipes.Find(id);
+                
+                context.Recipes.Remove(newRecipe);
+                context.SaveChanges();
+                SearchFavoritesViewModel.UserRecipeList.RemoveAll(Recipe => Recipe.Id == id);
+                
+                SearchFavoritesViewModel.SaveSelectedRecipe = searchFavoritesViewModel.SelectedRecipe;
+      
+            }
+            
+            return RedirectToAction("SendView", "SearchFavorites", new { searchFavoritesViewModel });
+            
         }
 
-        
-    }
+        [HttpGet]
+        [Route("SearchFavorites/SendView/{searchFavoritesViewModel}")]
+        public IActionResult SendView(SearchFavoritesViewModel searchFavoritesViewModel)
+        {
+            if (SearchFavoritesViewModel.SaveSelectedRecipe.Count > 0)
+            {
+                string saveId = SearchFavoritesViewModel.SaveSelectedRecipe[0].IdMeal;
+                int index = SearchFavoritesViewModel.SearchRecipeList.FindIndex(Recipe => Recipe.IdMeal == saveId);
+                searchFavoritesViewModel.SelectedRecipe = SearchFavoritesViewModel.SaveSelectedRecipe;  //.Add(SearchFavoritesViewModel.SearchRecipeList[index]);
+                SearchFavoritesViewModel.SearchRecipeList.RemoveAll(Recipe => Recipe.IdMeal == saveId);
+                ViewBag.deleteMsg = "Recipe has been deleted";
+            }
+            return View("Recipe", searchFavoritesViewModel);
+        }
+
+    }    
 }
 
  

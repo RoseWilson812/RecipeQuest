@@ -20,6 +20,7 @@ namespace RecipeQuest.ViewModels
         public static List<Recipe> SearchRecipeList { get; set; }
         public List<Recipe> SelectedRecipe { get; set; }
         public List<Recipe> DisplayRecipeList { get; set; }
+        public static List<Recipe> SaveSelectedRecipe { get; set; }
 
 
         public SearchFavoritesViewModel() 
@@ -50,6 +51,8 @@ namespace RecipeQuest.ViewModels
 
             SelectedRecipe = new List<Recipe>();
             SelectedRecipe = selectRecipes.GetRange(0, selectRecipes.Count);
+            SaveSelectedRecipe = new List<Recipe>();
+            SaveSelectedRecipe = selectRecipes.GetRange(0, selectRecipes.Count);
 
             DisplayRecipeList = new List<Recipe>();
             DisplayRecipeList = displayRecipes.GetRange(0, displayRecipes.Count);
