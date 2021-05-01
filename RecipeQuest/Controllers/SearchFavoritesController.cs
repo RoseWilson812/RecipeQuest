@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using RecipeQuest.Data;
 using RecipeQuest.Models;
 using RecipeQuest.ViewModels;
@@ -27,12 +28,35 @@ namespace RecipeQuest.Controllers
         [Authorize]
         public IActionResult Index()
         {
-
+            List<Recipe> allRecipes = new List<Recipe>();
             ClaimsPrincipal currentUser = this.User;
             var currentUserId = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
+            List<Member> saveMember = context.Members
+                .Where(m => m.UserId == currentUserId).ToList();
 
-            List<Recipe> allRecipes = context.Recipes
-                .Where(r => r.UserId == currentUserId).ToList();
+            if (saveMember.Count > 0)
+            {
+                List<MemberRecipe> allMemberRecipes = context.MemberRecipes
+                    .Where(mr => mr.MemberId == saveMember[0].Id)
+                    .Include(mr => mr.Recipe)
+                    .ToList();
+               
+                foreach (MemberRecipe rec in allMemberRecipes)
+                {
+                    allRecipes.Add(rec.Recipe);
+                }
+            }
+    //        else
+    //        {
+    //            List<Recipe> allRecipes = new List<Recipe>();
+                //List<MemberRecipe> allMemberRecipes = new List<MemberRecipe>();
+    //        }
+    //        List<Recipe> allRecipes = new List<Recipe>();
+    //        foreach (MemberRecipe rec in allMemberRecipes)
+    //        {
+    //            allRecipes.Add(rec.Recipe);
+    //        }
+  
             foreach (var rec in allRecipes)
             {
                 if (categoryName.Contains(rec.StrCategory))
@@ -165,8 +189,13 @@ namespace RecipeQuest.Controllers
             if (index >= 0)
             {
                 Recipe newRecipe = context.Recipes.Find(id);
-                
+                List<Member> saveMember = context.Members
+            .Where(m => m.UserId == newRecipe.UserId).ToList();
+
+                List<MemberRecipe> saveMemberRecipe = context.MemberRecipes
+                    .Where(mr => mr.MemberId == saveMember[0].Id && mr.RecipeId == id).ToList();
                 context.Recipes.Remove(newRecipe);
+                context.MemberRecipes.Remove(saveMemberRecipe[0]);
                 context.SaveChanges();
                 SearchFavoritesViewModel.UserRecipeList.RemoveAll(Recipe => Recipe.Id == id);
                 

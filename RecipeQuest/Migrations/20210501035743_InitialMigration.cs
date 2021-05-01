@@ -48,6 +48,19 @@ namespace RecipeQuest.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Members",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    UserId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Members", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Recipes",
                 columns: table => new
                 {
@@ -78,7 +91,8 @@ namespace RecipeQuest.Migrations
                     StrIngredient17 = table.Column<string>(nullable: true),
                     StrIngredient18 = table.Column<string>(nullable: true),
                     StrIngredient19 = table.Column<string>(nullable: true),
-                    StrIngredient20 = table.Column<string>(nullable: true)
+                    StrIngredient20 = table.Column<string>(nullable: true),
+                    UserId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -191,6 +205,30 @@ namespace RecipeQuest.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "MemberRecipes",
+                columns: table => new
+                {
+                    MemberId = table.Column<int>(nullable: false),
+                    RecipeId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MemberRecipes", x => new { x.MemberId, x.RecipeId });
+                    table.ForeignKey(
+                        name: "FK_MemberRecipes_Members_MemberId",
+                        column: x => x.MemberId,
+                        principalTable: "Members",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_MemberRecipes_Recipes_RecipeId",
+                        column: x => x.RecipeId,
+                        principalTable: "Recipes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -227,6 +265,11 @@ namespace RecipeQuest.Migrations
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MemberRecipes_RecipeId",
+                table: "MemberRecipes",
+                column: "RecipeId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -247,13 +290,19 @@ namespace RecipeQuest.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Recipes");
+                name: "MemberRecipes");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Members");
+
+            migrationBuilder.DropTable(
+                name: "Recipes");
         }
     }
 }

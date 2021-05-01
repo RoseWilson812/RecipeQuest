@@ -159,11 +159,26 @@ namespace RecipeQuest.Controllers
         
         public IActionResult SaveToFav(string mealId, Recipe newRecipe, RecipeViewModel newRecipeViewModel)
         {
-       
+            
             parseMealId = mealId.Split('|');
             newRecipe.IdMeal = parseMealId[2];
-
+            List<Member> saveMember = context.Members
+                .Where(m => m.UserId == newRecipe.UserId).ToList();
+            if (saveMember.Count == 0)
+            {
+                Member newMember = new Member(newRecipe.UserId);
+                saveMember.Add(newMember);
+                context.Members.Add(newMember);
+            }
+                      
             context.Recipes.Add(newRecipe);
+            var holdMemberRecipe = new MemberRecipe
+            {
+                Member = saveMember[0],
+                Recipe = newRecipe
+            };
+            context.MemberRecipes.Add(holdMemberRecipe);
+            
             context.SaveChanges();
             
             return RedirectToAction("SendView", "Recipe", new { routing = mealId }); 

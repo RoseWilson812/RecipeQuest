@@ -213,6 +213,35 @@ namespace RecipeQuest.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("RecipeQuest.Models.Member", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Members");
+                });
+
+            modelBuilder.Entity("RecipeQuest.Models.MemberRecipe", b =>
+                {
+                    b.Property<int>("MemberId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RecipeId")
+                        .HasColumnType("int");
+
+                    b.HasKey("MemberId", "RecipeId");
+
+                    b.HasIndex("RecipeId");
+
+                    b.ToTable("MemberRecipes");
+                });
+
             modelBuilder.Entity("RecipeQuest.Models.Recipe", b =>
                 {
                     b.Property<int>("Id")
@@ -352,6 +381,21 @@ namespace RecipeQuest.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("RecipeQuest.Models.MemberRecipe", b =>
+                {
+                    b.HasOne("RecipeQuest.Models.Member", "Member")
+                        .WithMany()
+                        .HasForeignKey("MemberId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("RecipeQuest.Models.Recipe", "Recipe")
+                        .WithMany()
+                        .HasForeignKey("RecipeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
