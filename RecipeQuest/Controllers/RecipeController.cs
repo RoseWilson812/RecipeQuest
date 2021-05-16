@@ -44,11 +44,11 @@ namespace RecipeQuest.Controllers
                 ClaimsPrincipal currentUser = this.User;
                 var currentUserId = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
                 initializeUserId = currentUserId;
-            }      
+            }
 
-            
+
             parseMealId = mealId.Split('|');
-                        
+
             List<Recipe> saveRecipe = context.Recipes
             .Where(r => r.UserId == initializeUserId && r.IdMeal == parseMealId[2]).ToList();
             if (saveRecipe.Count > 0)
@@ -65,7 +65,7 @@ namespace RecipeQuest.Controllers
             {
                 ViewBag.Result = "";
                 ViewBag.alreadySavedMsg = "";
-            }     
+            }
 
 
             // mealId = searchSelect("Cat" or "Org" or "Ing") + "|" + SearchItem + "|" + IdMeal;
@@ -136,9 +136,9 @@ namespace RecipeQuest.Controllers
                                    route
 
                          );
-                    
+
                     ViewBag.errorMsg = "";
-                                      
+
                     return View(newRecipeViewModel);
 
 
@@ -153,13 +153,13 @@ namespace RecipeQuest.Controllers
 
         }
 
-       
+
         [HttpPost]
         [Route("/Recipe/SaveToFav/{mealId}")]
-        
+
         public IActionResult SaveToFav(string mealId, Recipe newRecipe, RecipeViewModel newRecipeViewModel)
         {
-            
+
             parseMealId = mealId.Split('|');
             newRecipe.IdMeal = parseMealId[2];
             List<Member> saveMember = context.Members
@@ -170,7 +170,7 @@ namespace RecipeQuest.Controllers
                 saveMember.Add(newMember);
                 context.Members.Add(newMember);
             }
-                      
+
             context.Recipes.Add(newRecipe);
             var holdMemberRecipe = new MemberRecipe
             {
@@ -178,32 +178,32 @@ namespace RecipeQuest.Controllers
                 Recipe = newRecipe
             };
             context.MemberRecipes.Add(holdMemberRecipe);
-            
+
             context.SaveChanges();
-            
-            return RedirectToAction("SendView", "Recipe", new { routing = mealId }); 
+
+            return RedirectToAction("SendView", "Recipe", new { routing = mealId });
         }
 
-                
-                
-            
+
+
+
         [HttpGet]
         [Route("/Recipe/SendView/{routing}")]
 
         public IActionResult SendView(string routing)
         {
-            //List<Recipe> saveRecipe = new List<Recipe>();
+           
             string saveUserId = "";
             parseMealId = routing.Split('|');
-            //newRecipe.IdMeal = parseMealId[2];
+            
             if (User.Identity.IsAuthenticated)
-                {
+            {
                 ClaimsPrincipal currentUser = this.User;
                 var currentUserId = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
                 saveUserId = currentUserId.ToString();
-                }
-                List<Recipe> saveRecipe = context.Recipes
-                .Where(r => r.UserId == saveUserId && r.IdMeal == parseMealId[2]).ToList();
+            }
+            List<Recipe> saveRecipe = context.Recipes
+            .Where(r => r.UserId == saveUserId && r.IdMeal == parseMealId[2]).ToList();
 
             ViewBag.errorMsg = "";
             ViewBag.Result = "Recipe Saved Succesfully";
@@ -216,7 +216,7 @@ namespace RecipeQuest.Controllers
 
         [HttpGet]
         [Route("/Recipe/GoBack/{mealId}")]
-        
+
         public IActionResult GoBack(string mealId)
         {
             parseMealId = mealId.Split('|');
@@ -233,6 +233,74 @@ namespace RecipeQuest.Controllers
                 return RedirectToAction("Index", "MealByIngredient", new { mySearch = parseMealId[1] });
             }
 
+        }
+        [Authorize]
+        [HttpGet]
+        public IActionResult AddRecipe()
+        {
+            AddRecipeViewModel newAddRecipeViewModel = new AddRecipeViewModel();
+            ClaimsPrincipal currentUser = this.User;
+            var currentUserId = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
+            newAddRecipeViewModel.UserId = currentUserId.ToString();
+            newAddRecipeViewModel.StrMealThumb = "\\Image\\NoPhoto.jpg";
+            ViewBag.result = "";
+            return View(newAddRecipeViewModel);
+        }
+        [Authorize]
+        [HttpPost]
+        public IActionResult SaveRecipe(Recipe newRecipe, AddRecipeViewModel newAddRecipeViewModel)
+        {
+            ViewBag.result = "";
+            if (ModelState.IsValid)
+            {
+                List<Member> saveMember = context.Members
+                .Where(m => m.UserId == newRecipe.UserId).ToList();
+                if (saveMember.Count == 0)
+                {
+                    Member newMember = new Member(newRecipe.UserId);
+                    saveMember.Add(newMember);
+                    context.Members.Add(newMember);
+                }
+
+                var uppercase = "";
+                var firstChar = char.ToUpper(newRecipe.StrArea[0]);
+                uppercase = firstChar.ToString() + newRecipe.StrArea.Substring(1);
+                newRecipe.StrArea = uppercase;
+                newAddRecipeViewModel.StrArea = newRecipe.StrArea;
+
+                uppercase = "";
+                firstChar = char.ToUpper(newRecipe.StrCategory[0]);
+                uppercase = firstChar.ToString() + newRecipe.StrCategory.Substring(1);
+                newRecipe.StrCategory = uppercase;
+                newAddRecipeViewModel.StrCategory = newRecipe.StrCategory;
+                              
+                context.Recipes.Add(newRecipe);
+                var holdMemberRecipe = new MemberRecipe
+                {
+                    Member = saveMember[0],
+                    Recipe = newRecipe
+                };
+                context.MemberRecipes.Add(holdMemberRecipe);
+
+                context.SaveChanges();
+
+                var searchId = newRecipe.Id;
+                newRecipe.IdMeal = searchId.ToString();
+                context.Recipes.Update(newRecipe);
+                context.SaveChanges();
+                return RedirectToAction("SendAddRecipeView", "Recipe", new { recipeName = newAddRecipeViewModel.StrMeal });
+            }
+          
+            return View("AddRecipe", newAddRecipeViewModel);
+ 
+        }
+        [Authorize]
+        [HttpGet]
+        [Route("Recipe/SendAddRecipeView/{recipeName}")]
+        public IActionResult SendAddRecipeView(string recipeName)
+        {
+            ViewBag.result = "Recipe for " + recipeName + " has been saved";
+            return View("AddRecipe");
         }
     }
 }

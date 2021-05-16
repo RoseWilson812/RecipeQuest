@@ -1,0 +1,214 @@
+﻿@model RecipeQuest.ViewModels.AddRecipeViewModel
+
+@if (ViewBag.result.Length > 0)
+{
+<div class="text-center" style="background-color: #e9f1f4">
+    <h5>@ViewBag.result</h5>
+    <form>
+        <a class="btn btn-primary btn-sm active" style="background-color: yellow !important; color: black" asp-area="" asp-controller="Recipe" asp-action="AddRecipe" role="button">Add Another Recipe</a>
+    </form>
+</div>
+}
+else
+{
+
+        <body>
+            @*  <form asp-controller="AddRecipe" asp-route-mealid=@Model.Routing asp-action="SaveToFav" method="post"> *@
+            <form asp-controller="Recipe" asp-action="SaveRecipe" method="post">
+                <div class="container-fluid" style="background-color: #e9f1f4">
+                    <div class=" row form-group">
+                        <div class="col-md-3">
+                            <label asp-for="StrMeal"> Recipe Name</label>
+                            <input asp-for="StrMeal" />
+                            <span asp-validation-for="StrMeal"></span>
+                        </div>
+                        <div class="col-md-3">
+                            <label asp-for="StrCategory"> Category</label>
+                            <input asp-for="StrCategory" />
+                            <span asp-validation-for="StrCategory"></span>
+                        </div>
+                        <div class="col-md-3">
+                            <label asp-for="StrArea"> Country of Origin</label>
+                            <input asp-for="StrArea" />
+                            <span asp-validation-for="StrArea"></span>
+                        </div>
+                    </div>
+
+
+
+                    <div class="container-fluid">
+
+                        <div class="row form-group">
+
+                            <div class="col-md-3">
+                                <label asp-for="StrIngredient1">Ingredient 1</label>
+                                <input asp-for="StrIngredient1" />
+                                <span asp-validation-for="StrIngredient1"></span>
+                            </div>
+
+                            <div class="col-md-3">
+                                <label asp-for="StrIngredient2">Ingredient 2</label>
+                                <input asp-for="StrIngredient2" />
+                                <span asp-validation-for="StrIngredient2"></span>
+                            </div>
+                            <div class="col-md-3">
+                                <label asp-for="StrIngredient3">Ingredient 3</label>
+                                <input asp-for="StrIngredient3" />
+                                <span asp-validation-for="StrIngredient3"></span>
+                            </div>
+                            <div class="col-md-3">
+                                <label asp-for="StrIngredient4">Ingredient 4</label>
+                                <input asp-for="StrIngredient4" />
+                                <span asp-validation-for="StrIngredient4"></span>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+
+                            <div class="col-md-3">
+                                <label asp-for="StrIngredient5">Ingredient 5</label>
+                                <input asp-for="StrIngredient5" />
+                                <span asp-validation-for="StrIngredient5"></span>
+                            </div>
+
+                            <div class="col-md-3">
+                                <label asp-for="StrIngredient6">Ingredient 6</label>
+                                <input asp-for="StrIngredient6" />
+                                <span asp-validation-for="StrIngredient6"></span>
+                            </div>
+                            <div class="col-md-3">
+                                <label asp-for="StrIngredient7">Ingredient 7</label>
+                                <input asp-for="StrIngredient7" />
+                                <span asp-validation-for="StrIngredient7"></span>
+                            </div>
+                            <div class="col-md-3">
+                                <label asp-for="StrIngredient8">Ingredient 8</label>
+                                <input asp-for="StrIngredient8" />
+                                <span asp-validation-for="StrIngredient8"></span>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+
+                            <div class="col-md-3">
+                                <label asp-for="StrIngredient9">Ingredient 9</label>
+                                <input asp-for="StrIngredient9" />
+                                <span asp-validation-for="StrIngredient9"></span>
+                            </div>
+
+                            <div class="col-md-3">
+                                <label asp-for="StrIngredient10">Ingredient 10</label>
+                                <input asp-for="StrIngredient10" />
+                                <span asp-validation-for="StrIngredient10"></span>
+                            </div>
+                            <div class="col-md-3">
+                                <label asp-for="StrIngredient11">Ingredient 11</label>
+                                <input asp-for="StrIngredient11" />
+                                <span asp-validation-for="StrIngredient11"></span>
+                            </div>
+                            <div class="col-md-3">
+                                <label asp-for="StrIngredient12">Ingredient 12</label>
+                                <input asp-for="StrIngredient12" />
+                                <span asp-validation-for="StrIngredient12"></span>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+
+                            <div class="col-md-3">
+                                <label asp-for="StrIngredient13">Ingredient 13</label>
+                                <input asp-for="StrIngredient13" />
+                                <span asp-validation-for="StrIngredient13"></span>
+                            </div>
+
+                            <div class="col-md-3">
+                                <label asp-for="StrIngredient14">Ingredient 14</label>
+                                <input asp-for="StrIngredient14" />
+                                <span asp-validation-for="StrIngredient14"></span>
+                            </div>
+                            <div class="col-md-3">
+                                <label asp-for="StrIngredient15">Ingredient 15</label>
+                                <input asp-for="StrIngredient15" />
+                                <span asp-validation-for="StrIngredient15"></span>
+                            </div>
+                            <div class="col-md-3">
+                                <label asp-for="StrIngredient16">Ingredient 16</label>
+                                <input asp-for="StrIngredient16" />
+                                <span asp-validation-for="StrIngredient16"></span>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-3">
+                                <label asp-for="StrIngredient17">Ingredient 17</label>
+                                <input asp-for="StrIngredient17" />
+                                <span asp-validation-for="StrIngredient17"></span>
+                            </div>
+
+                            <div class="col-md-3">
+                                <label asp-for="StrIngredient18">Ingredient 18</label>
+                                <input asp-for="StrIngredient18" />
+                                <span asp-validation-for="StrIngredient18"></span>
+                            </div>
+                            <div class="col-md-3">
+                                <label asp-for="StrIngredient19">Ingredient 19</label>
+                                <input asp-for="StrIngredient19" />
+                                <span asp-validation-for="StrIngredient19"></span>
+                            </div>
+                            <div class="col-md-3">
+                                <label asp-for="StrIngredient20">Ingredient 20</label>
+                                <input asp-for="StrIngredient20" />
+                                <span asp-validation-for="StrIngredient20"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    @*       <div class="row form-group">
+                            <div class="col-sm-12">
+                                @Html.HiddenFor(model => model.StrInstructions)
+                            </div>
+                        </div>   *@
+
+                    <div class="text-center" style="background-color: #e9f1f4">
+
+                        <div class="row form-group">
+                            <div class="col-sm-12">
+
+                                <label asp-for="StrInstructions">Instructions:</label>
+                                <textarea rows="10" cols="110" asp-for="StrInstructions" name="StrInstructions"></textarea>
+                                <span asp-validation-for="StrInstructions"></span>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+
+                    @*         @if (Model.UserId == "")
+                        {
+                            <div class="text-center">
+                                <input type="submit" value="Login to Save Recipe" disabled class="btn btn-primary btn-lg active" style="background-color: #1ab2e6!important;">
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="text-center">
+                                <input type="submit" value="Save to Favorites" class="btn btn-primary btn-lg active" style="background-color: #1ab2e6!important;">
+                            </div>
+                        }    *@
+
+                    <div class="row form-group">
+                        <div class="col-sm-6">
+                            @Html.HiddenFor(model => model.StrMealThumb)
+                        </div>
+
+                        <div class="col-sm-6">
+                            @Html.HiddenFor(model => model.UserId)
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <input type="submit" value="Save to Favorites" class="btn btn-primary btn-lg active" style="background-color: #1ab2e6!important;">
+                    </div>
+                </div>
+            </form>
+
+
+        </body>
+}
+

@@ -46,16 +46,7 @@ namespace RecipeQuest.Controllers
                     allRecipes.Add(rec.Recipe);
                 }
             }
-    //        else
-    //        {
-    //            List<Recipe> allRecipes = new List<Recipe>();
-                //List<MemberRecipe> allMemberRecipes = new List<MemberRecipe>();
-    //        }
-    //        List<Recipe> allRecipes = new List<Recipe>();
-    //        foreach (MemberRecipe rec in allMemberRecipes)
-    //        {
-    //            allRecipes.Add(rec.Recipe);
-    //        }
+   
   
             foreach (var rec in allRecipes)
             {
@@ -215,7 +206,7 @@ namespace RecipeQuest.Controllers
             {
                 string saveId = SearchFavoritesViewModel.SaveSelectedRecipe[0].IdMeal;
                 int index = SearchFavoritesViewModel.SearchRecipeList.FindIndex(Recipe => Recipe.IdMeal == saveId);
-                searchFavoritesViewModel.SelectedRecipe = SearchFavoritesViewModel.SaveSelectedRecipe;  //.Add(SearchFavoritesViewModel.SearchRecipeList[index]);
+                searchFavoritesViewModel.SelectedRecipe = SearchFavoritesViewModel.SaveSelectedRecipe;  
                 SearchFavoritesViewModel.SearchRecipeList.RemoveAll(Recipe => Recipe.IdMeal == saveId);
                 ViewBag.deleteMsg = "Recipe has been deleted";
             }
